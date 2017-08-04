@@ -16,7 +16,7 @@ pipeline {
         parallel(
           "Build Server JRE": {
             dir(path: 'OracleJava/java-8') {
-              sh 'if [ ! -f $SW_FILE ]; then cp $SW_DIR/$SW_FILE" $SW_FILE; fi'
+              sh 'if [ ! -f $SW_FILE ]; then cp "$SW_DIR/$SW_FILE" $SW_FILE; fi'
               sh 'sudo ./build.sh'
               sh 'docker tag oracle/serverjre:$SW_VERSION localhost:5000/oracle/serverjre:$SW_VERSION'
               sh 'docker push localhost:5000/oracle/serverjre:$SW_VERSION'
