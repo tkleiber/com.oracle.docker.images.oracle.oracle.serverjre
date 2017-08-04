@@ -35,11 +35,10 @@ pipeline {
         )
       }
     }
-
-    environment {
-      SW_VERSION = '8'
-      SW_FILE = 'server-jre-8u144-linux-x64.tar.gz'
-      SW_DIR = '/software/Oracle/Java'
-    }
+  }
+  environment {
+    SW_VERSION = '8'
+    SW_FILE = 'server-jre-8u144-linux-x64.tar.gz'
+    SW_DIR = '/software/Oracle/Java'
   }
 }
