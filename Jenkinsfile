@@ -1,14 +1,20 @@
 pipeline {
   agent {
     node {
-      label 'localhost_vagrant'
+      label 'docker_in_docker'
     }
 
+  }
+  options {
+    buildDiscarder logRotator(numToKeepStr: '1')
   }
   stages {
     stage('Get Oracle Docker Sources') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: 'origin/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 30]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'e7677693-d5e6-463f-b6d4-597e0fb91c3f', url: 'https://github.com/oracle/docker-images.git']]])
+        dir ('oracle') {
+          git branch: 'main', credentialsId: 'github_id', url: 'https://github.com/oracle/docker-images.git'
+        }
+        sh 'ls -la'
       }
     }
     stage('Build Oracle Docker Images') {
