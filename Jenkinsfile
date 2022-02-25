@@ -1,14 +1,23 @@
 pipeline {
+
   agent {
     node {
       label 'docker_in_docker'
     }
-
   }
+
+  environment {
+    SW_VERSION = '8'
+    SW_FILE = 'server-jre-8u311-linux-x64.tar.gz'
+    SW_DIR = '/software/Oracle/Java'
+  }
+
   options {
     buildDiscarder logRotator(numToKeepStr: '1')
   }
+
   stages {
+
     stage('Get Oracle Docker Sources') {
       steps {
         dir ('oracle') {
@@ -17,6 +26,7 @@ pipeline {
         sh 'ls -la'
       }
     }
+
     stage('Build Oracle Docker Images') {
       steps {
         parallel(
@@ -31,6 +41,7 @@ pipeline {
         )
       }
     }
+
     stage('Cleanup') {
       steps {
         parallel(
@@ -42,9 +53,5 @@ pipeline {
       }
     }
   }
-  environment {
-    SW_VERSION = '8'
-    SW_FILE = 'server-jre-8u311-linux-x64.tar.gz'
-    SW_DIR = '/software/Oracle/Java'
-  }
+
 }
