@@ -8,7 +8,7 @@ pipeline {
 
   environment {
     SW_VERSION = '8'
-    SW_FILE = 'server-jre-8u321-linux-x64.tar.gz'
+    SW_FILE = 'server-jre-8u341-linux-x64.tar.gz'
     SW_DIR = '/software/Oracle/Java'
   }
 
